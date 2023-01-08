@@ -16,10 +16,10 @@ class CompleteReport(SimpleReport):
         list_products = ""
 
         for empresa in companhia_names:
-            list_products += f"{empresa}: {companhia_names[empresa]}\n"
+            list_products += f"- {empresa}: {companhia_names[empresa]}\n"
 
         return (
             f"{simple}\n"
             f"Produtos estocados por empresa:\n"
-            f"- {list_products}"
+            f"{list_products}"
         )
