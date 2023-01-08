@@ -1,5 +1,6 @@
 from inventory_report.reports.simple_report import SimpleReport
 from typing import List, Dict
+from collections import Counter
 
 
 class CompleteReport(SimpleReport):
@@ -10,4 +11,7 @@ class CompleteReport(SimpleReport):
 
         for item in list:
             companhia.append(item["nome_da_empresa"])
-            print(companhia)
+
+        return f"{simple} " f"Produtos estocados por empresa:" f"- {companhia}"
+
+        print(Counter(companhia))
