@@ -12,6 +12,14 @@ class CompleteReport(SimpleReport):
         for item in list:
             companhia.append(item["nome_da_empresa"])
 
-        return f"{simple} " f"Produtos estocados por empresa:" f"- {companhia}"
+        companhia_names = Counter(companhia)
+        list_products = ""
 
-        print(Counter(companhia))
+        for empresa in companhia_names:
+            list_products += f"{empresa}: {companhia_names[empresa]}\n"
+
+        return (
+            f"{simple}\n"
+            f"Produtos estocados por empresa:\n"
+            f"- {list_products}"
+        )
