@@ -1,4 +1,7 @@
 class Inventory:
     @staticmethod
     def import_data(path, type):
-        print(path)
+        if type == "simples":
+            print("simples")
+        else:
+            print("completo")
