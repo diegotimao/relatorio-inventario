@@ -1,6 +1,6 @@
 import csv
 import json
-from xml.dom import minidom
+import xmltodict
 import os
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
@@ -21,9 +21,11 @@ class Inventory:
 
     @staticmethod
     def get_file_xml(path):
-        with open(path, mode="r") as file:
-            file_xml = minidom.parse(file)
-            return file_xml
+        with open(path, mode="r", encoding="utf-8") as file:
+            my_xml = file.read()
+            file_xml = xmltodict.parse(my_xml)
+
+            return file_xml["dataset"]["record"]
 
     @staticmethod
     def type_filename(path):
