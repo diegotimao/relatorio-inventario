@@ -1,5 +1,6 @@
 import csv
 import json
+from xml.dom import minidom
 import os
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
@@ -19,6 +20,12 @@ class Inventory:
             return file_list
 
     @staticmethod
+    def get_file_xml(path):
+        with open(path, mode="r") as file:
+            file_xml = minidom.parse(file)
+            return file_xml
+
+    @staticmethod
     def type_filename(path):
         arquivo, extensao = os.path.splitext(path)
         return extensao
@@ -26,19 +33,18 @@ class Inventory:
     @staticmethod
     def import_data(path, type):
         extension = Inventory.type_filename(path)
+        list = []
+
         if extension == ".csv":
             list = Inventory.get_file_csv(path)
 
-            if type == "simples":
-                return SimpleReport.generate(list)
-            else:
-                return CompleteReport.generate(list)
         elif extension == ".json":
-            file_list = Inventory.get_file_json(path)
+            list = Inventory.get_file_json(path)
 
-            if type == "simples":
-                return SimpleReport.generate(file_list)
-            else:
-                return CompleteReport.generate(file_list)
         elif extension == ".xml":
-            print("Arquivo de extensão xml", extension)
+            list = Inventory.get_file_xml(path)
+
+        if type == "simples":
+            return SimpleReport.generate(list)
+        else:
+            return CompleteReport.generate(list)
