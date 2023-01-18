@@ -17,5 +17,5 @@ class InventoryRefactor(Iterable):
         else:
             return CompleteReport.generate(self.data)
 
-    def __next__(self):
+    def __iter__(self):
         return InventoryIterator(self.data)
